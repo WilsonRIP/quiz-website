@@ -3,9 +3,17 @@
 import Link from 'next/link'
 import { ThemeToggle } from './theme-toggle'
 import { usePathname } from 'next/navigation'
+import { useAuth } from '@/context/auth-context'
+import { useState } from 'react'
 
 export function Header() {
   const pathname = usePathname()
+  const { user, signOut } = useAuth()
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
 
   return (
     <header className="border-border bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
@@ -47,18 +55,84 @@ export function Header() {
                 className="group relative text-sm font-medium transition-colors"
               >
                 <span
-                  className={`${pathname === link.href ? 'text-primary' : 'text-foreground/60 hover:text-foreground'} transition-colors`}
+                  className={`${
+                    pathname === link.href
+                      ? 'text-primary'
+                      : 'text-foreground/60 hover:text-foreground'
+                  } transition-colors`}
                 >
                   {link.label}
                 </span>
                 <span
-                  className={`bg-primary absolute -bottom-5 left-0 h-[2px] w-full scale-x-0 transform transition-transform duration-300 ${pathname === link.href ? 'scale-x-100' : 'group-hover:scale-x-100'}`}
+                  className={`bg-primary absolute -bottom-5 left-0 h-[2px] w-full scale-x-0 transform transition-transform duration-300 ${
+                    pathname === link.href
+                      ? 'scale-x-100'
+                      : 'group-hover:scale-x-100'
+                  }`}
                 />
               </Link>
             ))}
           </div>
           <div className="flex items-center space-x-4">
             <ThemeToggle />
+
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="border-border bg-background hover:bg-accent flex items-center space-x-2 rounded-full border p-1.5 focus:outline-none"
+                >
+                  <div className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-full text-sm font-medium">
+                    {user.email?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                </button>
+
+                {isDropdownOpen && (
+                  <div
+                    className="bg-popover text-popover-foreground border-border absolute right-0 mt-2 w-48 rounded-md border shadow-lg"
+                    onBlur={() => setIsDropdownOpen(false)}
+                  >
+                    <div className="p-2">
+                      <div className="border-border border-b px-4 py-2 text-sm font-medium">
+                        {user.email}
+                      </div>
+                      <Link
+                        href="/profile"
+                        className="hover:bg-accent block w-full px-4 py-2 text-left text-sm"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                      <button
+                        onClick={async () => {
+                          await signOut()
+                          setIsDropdownOpen(false)
+                        }}
+                        className="hover:bg-accent block w-full px-4 py-2 text-left text-sm text-red-500"
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link
+                  href="/login"
+                  className="hover:text-primary text-sm font-medium"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-colors focus:ring-2 focus:outline-none"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
+
             <Link
               href="/quizzes"
               className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 hidden rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-colors focus:ring-2 focus:outline-none sm:inline-flex"
