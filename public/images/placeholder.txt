@@ -1,0 +1,9 @@
+This directory contains placeholder images for quizzes.
+
+The following images should be added here:
+- world-history.jpg
+- science.jpg
+- fun-facts.jpg
+- technology.jpg
+
+You can replace these with your own images with the same filenames. 

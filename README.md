@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QuizMaster - Interactive Knowledge Quizzes
+
+A modern, interactive quiz platform built with Next.js and TypeScript. Test your knowledge with various quizzes on real-life events, science facts, history, technology, and more.
+
+## Features
+
+- **Diverse Quiz Categories**: Multiple quiz topics to choose from
+- **Interactive Quiz Experience**: Clean and engaging quiz UI
+- **Difficulty Levels**: Easy, medium, and hard quizzes
+- **Explanations**: Learn from detailed explanations for each answer
+- **Responsive Design**: Works great on mobile, tablet, and desktop
+- **Dark/Light Mode**: Choose your preferred visual theme
+- **Leaderboard**: See how you stack up against other quiz takers
+
+## Technologies Used
+
+- **Next.js**: React framework for server-side rendering and static site generation
+- **TypeScript**: For type safety and better developer experience
+- **Tailwind CSS**: Utility-first CSS framework for styling
+- **Framer Motion**: For smooth animations and transitions
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18 or later
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/quiz-website.git
+cd quiz-website
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+quiz-website/
+├── public/             # Static assets
+│   └── images/         # Quiz images
+├── src/
+│   ├── app/            # Next.js app directory
+│   │   ├── page.tsx    # Home page
+│   │   └── ...         # Other pages
+│   ├── components/     # Reusable components
+│   ├── data/           # Mock data for quizzes
+│   └── types/          # TypeScript type definitions
+├── package.json
+└── ...
+```
 
-## Learn More
+## Adding Your Own Quizzes
 
-To learn more about Next.js, take a look at the following resources:
+You can add your own quizzes by modifying the `src/data/quizzes.ts` file. Follow the same structure as the existing quizzes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Theme**: Modify the theme variables in `src/app/globals.css`
+- **Quiz Data**: Update or add more quizzes in `src/data/quizzes.ts`
+- **Styling**: Adjust the styling in component files or modify Tailwind configuration
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgements
+
+- Created by [WilsonRIP](https://github.com/WilsonRIP)
+- Quiz questions and facts sourced from various public domain knowledge bases
