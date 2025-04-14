@@ -2,7 +2,7 @@
 
 import { QuizCategory, QuizDifficulty } from '@/types/quiz'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const categories: { value: QuizCategory; label: string }[] = [
   { value: 'history', label: 'History' },
@@ -32,7 +32,7 @@ export function QuizFilters() {
     searchParams.get('difficulty')
   )
 
-  const createQueryString = (name: string, value: string | null) => {
+  const createQueryString = useCallback((name: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString())
 
     if (value === null) {
@@ -42,7 +42,7 @@ export function QuizFilters() {
     }
 
     return params.toString()
-  }
+  }, [searchParams])
 
   useEffect(() => {
     // Update URL when filters change
@@ -62,7 +62,7 @@ export function QuizFilters() {
       // If no filters but URL has params, clean URL
       router.push(pathname)
     }
-  }, [currentCategory, currentDifficulty, pathname, router])
+  }, [currentCategory, currentDifficulty, pathname, router, createQueryString, searchParams])
 
   const handleCategoryChange = (category: string) => {
     setCurrentCategory((prev) => (prev === category ? null : category))
@@ -87,10 +87,10 @@ export function QuizFilters() {
             <button
               key={category.value}
               onClick={() => handleCategoryChange(category.value)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ${
                 currentCategory === category.value
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                  ? 'bg-pink-500 text-primary-foreground shadow-md shadow-primary/30 scale-105 ring-2 ring-primary/20 dark:ring-primary/40'
+                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:scale-105 hover:shadow-sm'
               }`}
             >
               {category.label}
@@ -104,10 +104,10 @@ export function QuizFilters() {
             <button
               key={difficulty.value}
               onClick={() => handleDifficultyChange(difficulty.value)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ${
                 currentDifficulty === difficulty.value
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                  ? 'bg-pink-500 text-primary-foreground shadow-md shadow-primary/30 scale-105 ring-2 ring-primary/20 dark:ring-primary/40 hover:shadow-lg hover:scale-110 hover:ring-4 hover:brightness-110 hover:z-10'
+                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:scale-105 hover:shadow-sm'
               }`}
             >
               {difficulty.label}
@@ -118,7 +118,7 @@ export function QuizFilters() {
         {(currentCategory || currentDifficulty) && (
           <button
             onClick={resetFilters}
-            className="text-primary text-sm font-medium hover:underline"
+            className="text-pink-500 text-sm font-medium transition-colors hover:text-pink-600 hover:underline"
           >
             Reset Filters
           </button>

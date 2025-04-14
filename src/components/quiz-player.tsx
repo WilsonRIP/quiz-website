@@ -41,7 +41,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps) {
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [score, setScore] = useState(0)
   const [animatingAnswer, setAnimatingAnswer] = useState(false)
-  const [resultSaved, setResultSaved] = useState(false)
 
   const currentQuestion = quiz.questions[currentQuestionIndex]
   const totalQuestions = quiz.questions.length
@@ -81,7 +80,6 @@ export function QuizPlayer({ quiz }: QuizPlayerProps) {
           totalQuestions
         ).then(({ success, error }) => {
           if (success) {
-            setResultSaved(true)
             console.log('Quiz result saved successfully')
           } else {
             console.error('Failed to save quiz result:', error)
