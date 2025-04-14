@@ -4,6 +4,8 @@ import { Quiz } from '@/types/quiz'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuth } from '@/context/auth-context'
+import { saveQuizResult } from '@/lib/quiz-service'
 
 // Add type definition for the confetti function
 declare global {
@@ -30,6 +32,7 @@ interface QuizPlayerProps {
 
 export function QuizPlayer({ quiz }: QuizPlayerProps) {
   const router = useRouter()
+  const { user } = useAuth()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>(
     Array(quiz.questions.length).fill(-1)
@@ -38,6 +41,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps) {
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [score, setScore] = useState(0)
   const [animatingAnswer, setAnimatingAnswer] = useState(false)
+  const [resultSaved, setResultSaved] = useState(false)
 
   const currentQuestion = quiz.questions[currentQuestionIndex]
   const totalQuestions = quiz.questions.length
@@ -68,6 +72,22 @@ export function QuizPlayer({ quiz }: QuizPlayerProps) {
   const handleNextQuestion = () => {
     if (isLastQuestion) {
       setQuizCompleted(true)
+      // Save quiz result to Supabase when completing the quiz
+      if (user) {
+        saveQuizResult(
+          user.id,
+          quiz.id,
+          score,
+          totalQuestions
+        ).then(({ success, error }) => {
+          if (success) {
+            setResultSaved(true)
+            console.log('Quiz result saved successfully')
+          } else {
+            console.error('Failed to save quiz result:', error)
+          }
+        })
+      }
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
       setShowExplanation(false)

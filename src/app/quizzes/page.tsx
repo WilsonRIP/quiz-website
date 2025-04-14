@@ -31,7 +31,7 @@ export default function QuizzesPage() {
 
   return (
     <MainLayout>
-      <div className="container py-10">
+      <div className="container py-10 text-center">
         <h1 className="mb-8 text-3xl font-bold tracking-tight md:text-4xl">
           {filteredQuizzes.length > 0
             ? 'Available Quizzes'

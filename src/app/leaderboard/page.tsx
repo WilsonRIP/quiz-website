@@ -18,7 +18,7 @@ const leaderboardData: UserScore[] = [
 export default function LeaderboardPage() {
   return (
     <MainLayout>
-      <div className="container py-10">
+      <div className="container py-10 text-center">
         <h1 className="mb-6 text-3xl font-bold tracking-tight md:text-4xl">
           Quiz Masters Leaderboard
         </h1>

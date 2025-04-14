@@ -4,12 +4,31 @@ import Link from 'next/link'
 import { ThemeToggle } from './theme-toggle'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/auth-context'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Avatar } from './ui/avatar'
+import { fetchUserProfile } from '@/lib/profile-service'
+import { Profile } from '@/types/user'
 
 export function Header() {
   const pathname = usePathname()
   const { user, signOut } = useAuth()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [profile, setProfile] = useState<Profile | null>(null)
+
+  useEffect(() => {
+    async function loadProfile() {
+      if (!user) return
+
+      const { profile } = await fetchUserProfile(user.id)
+      if (profile) {
+        setProfile(profile)
+      }
+    }
+
+    if (user) {
+      loadProfile()
+    }
+  }, [user])
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
@@ -82,9 +101,12 @@ export function Header() {
                   onClick={toggleDropdown}
                   className="border-border bg-background hover:bg-accent flex items-center space-x-2 rounded-full border p-1.5 focus:outline-none"
                 >
-                  <div className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-full text-sm font-medium">
-                    {user.email?.charAt(0).toUpperCase() || 'U'}
-                  </div>
+                  <Avatar 
+                    src={profile?.avatar_url} 
+                    alt={profile?.username || user.email || 'User'} 
+                    size="sm"
+                    letter={user.email?.charAt(0).toUpperCase() || 'U'} 
+                  />
                 </button>
 
                 {isDropdownOpen && (
@@ -94,8 +116,15 @@ export function Header() {
                   >
                     <div className="p-2">
                       <div className="border-border border-b px-4 py-2 text-sm font-medium">
-                        {user.email}
+                        {profile?.username || user.email}
                       </div>
+                      <Link
+                        href="/dashboard"
+                        className="hover:bg-accent block w-full px-4 py-2 text-left text-sm"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
                       <Link
                         href="/profile"
                         className="hover:bg-accent block w-full px-4 py-2 text-left text-sm"

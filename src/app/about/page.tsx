@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function AboutPage() {
   return (
     <MainLayout>
-      <div className="container py-10">
+      <div className="container py-10 text-center">
         <div className="mx-auto max-w-3xl">
           <h1 className="mb-6 text-3xl font-bold tracking-tight md:text-4xl">
             About QuizMaster

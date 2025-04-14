@@ -17,7 +17,7 @@ export default function QuizPage() {
 
   return (
     <MainLayout>
-      <div className="container py-10">
+      <div className="container py-10 text-center">
         <div className="mb-8">
           <h1 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
             {quiz.title}
