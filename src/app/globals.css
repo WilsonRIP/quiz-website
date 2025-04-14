@@ -1,21 +1,24 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #f8f9fa;
-  --foreground: #212529;
-  --primary: #6366f1;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #334155;
-  --accent: #8b5cf6;
-  --accent-foreground: #ffffff;
-  --muted: #e2e8f0;
-  --muted-foreground: #64748b;
-  --card: #ffffff;
-  --card-foreground: #1e293b;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #6366f1;
+  --background: 210 20% 98%;
+  --foreground: 220 13% 15%;
+  --primary: 243 75% 59%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 38% 95%;
+  --secondary-foreground: 215 25% 27%;
+  --accent: 263 67% 51%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 217 33% 88%;
+  --muted-foreground: 215 16% 47%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 243 75% 59%;
+  --radius: 0.5rem;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 }
 
 @theme inline {
@@ -39,29 +42,40 @@
 }
 
 .dark {
-  --background: #111827;
-  --foreground: #f8f9fa;
-  --primary: #8b5cf6;
-  --primary-foreground: #ffffff;
-  --secondary: #1f2937;
-  --secondary-foreground: #e2e8f0;
-  --accent: #6366f1;
-  --accent-foreground: #ffffff;
-  --muted: #374151;
-  --muted-foreground: #9ca3af;
-  --card: #1f2937;
-  --card-foreground: #e2e8f0;
-  --border: #374151;
-  --input: #374151;
-  --ring: #8b5cf6;
+  --background: 224 71% 4%;
+  --foreground: 210 20% 98%;
+  --primary: 263 67% 51%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 215 28% 17%;
+  --secondary-foreground: 210 20% 92%;
+  --accent: 243 75% 59%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  --card: 215 28% 17%;
+  --card-foreground: 210 20% 92%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 263 67% 51%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100vh;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

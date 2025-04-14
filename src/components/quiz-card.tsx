@@ -9,9 +9,9 @@ export function QuizCard({ quiz }: QuizCardProps) {
   return (
     <Link
       href={`/quizzes/${quiz.id}`}
-      className="bg-card text-card-foreground group hover:shadow-primary/5 flex flex-col overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+      className="group flex h-full flex-col overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/10"
     >
-      <div className="bg-muted relative aspect-[16/9] w-full overflow-hidden">
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-muted">
         {quiz.imageUrl ? (
           <>
             <div
@@ -20,29 +20,29 @@ export function QuizCard({ quiz }: QuizCardProps) {
               role="img"
               aria-label={quiz.title}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70" />
-            <div className="absolute bottom-3 left-3">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+            <div className="absolute bottom-4 left-4 right-4">
               <h3 className="text-xl font-bold text-white drop-shadow-md">
                 {quiz.title}
               </h3>
             </div>
           </>
         ) : (
-          <div className="bg-muted flex h-full w-full items-center justify-center">
-            <span className="text-muted-foreground text-4xl font-bold">
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-background">
+            <span className="text-4xl font-bold text-primary/80">
               {quiz.title.charAt(0)}
             </span>
           </div>
         )}
       </div>
-      <div className="flex-1 p-5">
+      <div className="flex flex-1 flex-col p-5">
         {!quiz.imageUrl && (
-          <h3 className="mb-2 text-xl font-bold">{quiz.title}</h3>
+          <h3 className="mb-3 text-xl font-bold group-hover:text-primary transition-colors">{quiz.title}</h3>
         )}
-        <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
+        <p className="text-muted-foreground mb-6 line-clamp-2 text-sm">
           {quiz.description}
         </p>
-        <div className="flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors">
               {quiz.category}
@@ -59,7 +59,7 @@ export function QuizCard({ quiz }: QuizCardProps) {
               {quiz.difficulty}
             </span>
           </div>
-          <div className="text-muted-foreground flex items-center text-sm">
+          <div className="flex items-center text-sm text-muted-foreground">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
